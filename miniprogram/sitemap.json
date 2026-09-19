@@ -1,0 +1,17 @@
+{
+  "desc": "小程序搜索收录配置：按微信小程序 sitemap 规则，仅开放不依赖用户私密数据的核心公开入口页，登录后才有内容的页面不参与搜索索引。",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "pages/index/index"
+    },
+    {
+      "action": "allow",
+      "page": "subpage1/pages/answer-book/index"
+    },
+    {
+      "action": "disallow",
+      "page": "*"
+    }
+  ]
+}

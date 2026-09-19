@@ -1,0 +1,182 @@
+/* components/function-menu/index.wxss */
+/* 功能导航面板样式 */
+
+/* 遮罩层 */
+.function-menu-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-end; /* ✅ 底部对齐 */
+  justify-content: center;
+}
+
+.function-menu-mask.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 面板主体 - 四周圆角设计 */
+.function-menu-panel {
+  position: fixed; /* ✅ 固定定位 */
+  bottom: 200rpx; /* ✅ 面板底部距离屏幕底部 200rpx */
+  left: 50%;
+  transform: translateX(-50%) translateY(30rpx) scale(0.95); /* ✅ 水平居中 + 动画起始 */
+  width: 90%;
+  max-width: 680rpx;
+  background: #FFFFFF;
+  /* ✅ 四周都是圆角 */
+  border-radius: 40rpx;
+  padding: 36rpx 24rpx 32rpx;
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 16rpx 48rpx rgba(244, 143, 177, 0.2),
+    0 8rpx 24rpx rgba(244, 143, 177, 0.15);
+}
+
+.function-menu-panel.show {
+  transform: translateX(-50%) translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ✅ 底部小三角 - 指向探索按钮 */
+.function-menu-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -22rpx; /* ✅ 三角形尖尖贴横线 */
+  left: 50%;
+  transform: translateX(-50%); /* ✅ 水平居中 */
+  width: 0;
+  height: 0;
+  /* ✅ 使用 border 创建向下的小三角形 */
+  border-left: 16rpx solid transparent;
+  border-right: 16rpx solid transparent;
+  border-top: 20rpx solid #FFFFFF;
+  /* ✅ 阴影效果 */
+  filter: drop-shadow(0 4rpx 8rpx rgba(244, 143, 177, 0.15));
+  z-index: 1;
+}
+
+/* 功能网格 - 一行横向排列 */
+.menu-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 12rpx; /* ✅ 减小内边距 */
+  /* ✅ 移除背景框和阴影 */
+  background: transparent;
+  box-shadow: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ✅ 移除居中样式（不再需要） */
+.menu-item-center {
+  /* 不需要特殊样式 */
+}
+
+.menu-item:active {
+  transform: scale(0.92);
+}
+
+/* 图标容器 */
+.menu-icon-wrapper {
+  width: 72rpx; /* ✅ 稍微缩小 */
+  height: 72rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rpx; /* ✅ 减小间距 */
+  position: relative; /* 为红点定位提供上下文 */
+}
+
+/* 菜单项红点徽章 */
+.menu-badge {
+  position: absolute;
+  top: -6rpx;
+  right: -6rpx;
+  width: 32rpx;
+  height: 32rpx;
+  background: #FF0000; /* 鲜艳大红色 */
+  border-radius: 50%; /* 正圆形 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 6rpx rgba(255, 0, 0, 0.5);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+.menu-badge-text {
+  font-size: 18rpx;
+  color: #FFFFFF;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* 红点脉冲动画 */
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* 星座运势特殊样式 - 无背景 */
+.horoscope-bg {
+  background: transparent;
+  box-shadow: none;
+}
+
+.menu-icon {
+  font-size: 36rpx;
+  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.1));
+}
+
+/* 星座符号特殊放大 */
+.horoscope-bg .menu-icon {
+  font-size: 64rpx;  /* ✅ 从56rpx放大到64rpx,匹配其他图标视觉大小 */
+}
+
+/* 不同功能的背景色 - 增强渐变效果 */
+.ranking-bg {
+  background: linear-gradient(135deg, #FFD93D 0%, #FFE566 50%, #FFF0A0 100%);
+}
+
+.bonus-bg {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 50%, #FFB3B3 100%);
+}
+
+.friend-bg {
+  background: linear-gradient(135deg, #F48FB1 0%, #FFB6C9 50%, #FFD6E3 100%);
+}
+
+.answer-bg {
+  background: linear-gradient(135deg, #4ECDC4 0%, #7EDDD6 50%, #A8EDE6 100%);
+}
+
+/* 功能文字 */
+.menu-text {
+  font-size: 24rpx; /* ✅ 稍微缩小 */
+  color: #2D3436;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap; /* ✅ 防止换行 */
+}

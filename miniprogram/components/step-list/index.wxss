@@ -1,0 +1,173 @@
+/* components/step-list/index.wxss */
+/* 温暖治愈系样式 */
+.step-list {
+  padding: 16rpx 24rpx;
+}
+
+.step-item {
+  display: flex;
+  position: relative;
+  min-height: 120rpx;
+}
+
+.step-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48rpx;
+  flex-shrink: 0;
+}
+
+.step-dot {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #E8E8ED;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.step-dot.finished {
+  background: #FFFFFF;
+  border: 4rpx solid #B92F68;
+}
+
+.step-dot.active {
+  background: #FFFFFF;
+  border: 4rpx solid #B92F68;
+  box-shadow: 0 0 0 6rpx rgba(185, 47, 104, 0.18);
+}
+
+.dot-text {
+  color: #B92F68;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.step-line {
+  width: 4rpx;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.92);
+  transition: background 0.3s ease;
+}
+
+.step-item:last-child .step-line {
+  display: none;
+}
+
+.step-content {
+  flex: 1;
+  padding: 0 0 24rpx 20rpx;
+}
+
+.step-content:active {
+  opacity: 0.82;
+}
+
+.step-title {
+  font-size: 28rpx;
+  color: #5A1832;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.step-title.finished {
+  color: #5A1832;
+}
+
+.step-body {
+  background: #FFF9FB;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  margin-top: 10rpx;
+}
+
+.step-content-text {
+  font-size: 28rpx;
+  color: #636E72;
+  line-height: 1.6;
+  display: block;
+}
+
+/* 情感分析标签 */
+.step-analysis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 10rpx;
+}
+
+.analysis-label {
+  display: inline-flex;
+  font-size: 26rpx;
+  color: #636E72;
+  background: #FFF1F6;
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.analysis-value {
+  color: #F48FB1;
+  font-weight: 500;
+}
+
+/* 情绪建议 */
+.step-reminder {
+  margin-top: 10rpx;
+  background: #FFF8E1;
+  padding: 14rpx;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #FFC107;
+}
+
+.reminder-text {
+  font-size: 28rpx;
+  color: #2D3436;
+  line-height: 1.5;
+  display: block;
+}
+
+/* 历史图片 */
+.step-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 10rpx;
+}
+
+.step-img {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 12rpx;
+  background: #FFFFFF;
+  border: 4rpx solid rgba(255, 255, 255, 0.9);
+}
+
+.step-view-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  margin-top: 12rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.88);
+  float: right;
+}
+
+.step-view-text {
+  font-size: 24rpx;
+  color: #6E1E3B;
+  font-weight: 600;
+}
+
+.step-view-arrow {
+  font-size: 32rpx;
+  line-height: 1;
+  color: #B92F68;
+}

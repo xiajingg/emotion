@@ -1,0 +1,251 @@
+/* subpage1/pages/daily-bonus/index.wxss */
+/* 温暖治愈系样式 */
+.bonus-container {
+  padding: 32rpx;
+  background: #FFF9FB;
+  min-height: 100vh;
+}
+
+.alert-message {
+  background-color: #FFF8E1;
+  color: #E65100;
+  padding: 24rpx;
+  text-align: center;
+  margin-bottom: 32rpx;
+  border-radius: 16rpx;
+  border: 1rpx solid #FFE082;
+}
+
+.alert-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+  color: #E65100;
+}
+
+.alert-desc {
+  display: block;
+  font-size: 28rpx;
+  color: #E65100;
+  margin-top: 8rpx;
+  opacity: 0.8;
+}
+
+.bonus-card,
+.history-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 4rpx 16rpx rgba(244, 143, 177,0.08);
+}
+
+.bonus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+
+.bonus-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #2D3436;
+}
+
+.bonus-time {
+  font-size: 28rpx;
+  color: #636E72;
+}
+
+/* ✅ 新增：统计数据区域 */
+.bonus-stats {
+  display: flex;
+  align-items: stretch;
+  background: linear-gradient(135deg, #FFF9FB 0%, #FFFFFF 100%);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid #E8E8ED;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx;
+}
+
+/* 今日状态 - 高亮强调样式 */
+.stat-today {
+  position: relative;
+}
+
+.stat-label-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 12rpx;
+}
+
+.stat-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #F48FB1;  /* ✅ 主题粉色，强调色 */
+}
+
+.stat-badge {
+  font-size: 20rpx;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+
+.stat-today .stat-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #F48FB1;  /* ✅ 大字号 + 强调色 */
+  margin-bottom: 8rpx;
+  line-height: 1;
+}
+
+.stat-today .stat-desc {
+  font-size: 24rpx;
+  color: #FFB6C9;  /* ✅ 浅粉色 */
+}
+
+/* ✅ 新增：抢名额提示 */
+.usage-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  background: #FFF8E1;
+  border: 1rpx solid #FFE082;
+  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.tip-icon {
+  font-size: 28rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+
+.tip-text {
+  flex: 1;
+  font-size: 24rpx;
+  color: #E65100;
+  line-height: 1.6;
+}
+
+.claim-button {
+  background: linear-gradient(135deg, #F48FB1 0%, #FFB6C9 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 32rpx;
+  padding: 16rpx 40rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  min-width: 200rpx;
+}
+
+.claim-button.disabled {
+  background: #E8E8ED;
+  color: #B2BEC3;
+}
+
+.history-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx 0 40rpx;
+}
+
+.title-line {
+  flex: 1;
+  height: 1rpx;
+  background: linear-gradient(to right, transparent, #E8E8ED, transparent);
+}
+
+.title-text {
+  padding: 0 24rpx;
+  color: #2D3436;
+  font-weight: 500;
+  font-size: 30rpx;
+}
+
+.history-list {
+  padding: 0;
+}
+
+.history-item {
+  padding: 24rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+/* ✅ 高亮当前用户的记录（与排行榜风格一致） */
+.history-item.highlight {
+  background: linear-gradient(135deg, rgba(244, 143, 177, 0.1) 0%, rgba(255, 182, 201, 0.1) 100%);
+  border-left: 4rpx solid #F48FB1;
+}
+
+.history-item.highlight .user-id {
+  color: #F48FB1;
+  font-weight: 600;
+}
+
+.history-info {
+  flex: 1;
+}
+
+.user-id {
+  display: block;
+  font-size: 28rpx;
+  color: #2D3436;  /* ✅ 与排行榜.col-user保持一致 */
+  margin-bottom: 12rpx;
+  font-weight: 500;  /* ✅ 增加字重 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-time {
+  display: block;
+  font-size: 28rpx;
+  color: #2D3436;
+  margin-bottom: 12rpx;
+}
+
+.history-value {
+  display: block;
+  font-size: 28rpx;
+  color: #FF6B6B;
+  font-weight: 500;
+}
+
+.history-status {
+  font-size: 28rpx;
+  color: #52C41A;
+  font-weight: 500;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #B2BEC3;
+  font-size: 28rpx;
+}

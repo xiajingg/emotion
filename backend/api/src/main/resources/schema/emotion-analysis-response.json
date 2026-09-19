@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EmotionAnalysisResponse",
+  "description": "情绪分析响应 - Ollama AI 返回的结构化数据",
+  "type": "object",
+  "properties": {
+    "score": {
+      "type": "integer",
+      "description": "情绪分数，范围1-100",
+      "minimum": 1,
+      "maximum": 100,
+      "examples": [45, 78, 23]
+    },
+    "suggestion": {
+      "type": "string",
+      "description": "AI给出的建议或安慰语",
+      "minLength": 1,
+      "maxLength": 500,
+      "examples": [
+        "听起来你心情不错，继续保持哦！",
+        "感到沮丧是正常的，试着深呼吸放松一下",
+        "你的情绪很低落，需要找人聊聊吗？"
+      ]
+    }
+  },
+  "required": ["score", "suggestion"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "score": 75,
+      "suggestion": "今天心情很好呢，保持这份快乐！"
+    },
+    {
+      "score": 25,
+      "suggestion": "感到愤怒时，先停下来深呼吸几次"
+    },
+    {
+      "score": 50,
+      "suggestion": "平静的心态很棒，适合思考和学习"
+    }
+  ]
+}

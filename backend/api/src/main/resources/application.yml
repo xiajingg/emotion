@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: emotion-api
+  profiles:
+    active: prod
+  config:
+    # 应用密钥（JWT / 智谱 API Key）单独存放，该文件已被 gitignore。
+    # 用 optional: 前缀，这样缺失时不会导致启动失败 —— 也可以用环境变量提供。
+    import: optional:classpath:application-secret.yml
+server:
+  port: 8080

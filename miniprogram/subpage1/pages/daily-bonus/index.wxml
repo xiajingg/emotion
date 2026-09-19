@@ -1,0 +1,65 @@
+<!--subpage1/pages/daily-bonus/index.wxml-->
+<view class="bonus-container">
+  <!-- 提示信息 -->
+  <view class="alert-message">
+    <text class="alert-title">今天也可以轻一点</text>
+    <text class="alert-desc">不用抢名额，先把此刻的情绪放下来</text>
+  </view>
+
+  <!-- 今日补给信息 -->
+  <view class="bonus-card">
+    <view class="bonus-header">
+      <text class="bonus-title">每日情绪补给</text>
+      <text class="bonus-time">{{refreshTime}}</text>
+    </view>
+    
+    <view class="bonus-stats">
+      <view class="stat-item stat-today">
+        <view class="stat-label-wrap">
+          <text class="stat-label">今日状态</text>
+          <text class="stat-badge">免费开放</text>
+        </view>
+        <text class="stat-value">不限次</text>
+        <text class="stat-desc">适合每天记录一次真实感受</text>
+      </view>
+    </view>
+    
+    <view class="usage-tip">
+      <text class="tip-icon">💗</text>
+      <text class="tip-text">写一句，就能生成解压动作和可复制回复。</text>
+    </view>
+    
+    <button 
+      class="claim-button"
+      bindtap="goToHomeRecord"
+    >
+      去写下此刻
+    </button>
+  </view>
+
+  <!-- 最近参与记录 -->
+  <view class="history-card">
+    <view class="history-title">
+      <view class="title-line"></view>
+      <text class="title-text">最近参与</text>
+      <view class="title-line"></view>
+    </view>
+    <view class="history-list">
+      <view 
+        wx:for="{{quotaHistory}}" 
+        wx:key="index" 
+        class="history-item {{item.isMe ? 'highlight' : ''}}"
+      >
+        <view class="history-info">
+          <text class="user-id">{{item.displayName}}</text>
+          <text class="history-time">{{item.claimTimeFormatted}}</text>
+          <text class="history-value">完成一次情绪补给</text>
+        </view>
+        <text class="history-status">已参与</text>
+      </view>
+      <view wx:if="{{quotaHistory.length === 0}}" class="empty-tip">
+        <text>暂无参与记录</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,49 @@
+{
+  "__usePrivacyCheck__": true,
+  "pages": [
+    "pages/index/index",
+    "pages/weekly-report/weekly-report"
+  ],
+  "subpackages": [
+    {
+      "root": "subpage1",
+      "pages": [
+        "pages/reminisce/index",
+        "pages/ranking/index",
+        "pages/daily-bonus/index",
+        "pages/answer-book/index",
+        "pages/answer-book/history",
+        "pages/reminisce/detail",
+        "pages/horoscope/index",
+        "pages/friend-share/index",
+        "pages/reply-favorites/index"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F48FB1",
+    "navigationBarTitleText": "情绪解压卡",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#FFF9FB",
+    "backgroundTextStyle": "dark"
+  },
+  "permission": {
+    "scope.record": {
+      "desc": "用于把你的语音转换成文字，填入情绪输入框"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "用于保存情绪解压卡、答案卡片和运势卡片到相册"
+    }
+  },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.7",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "tab-bar": "/components/tab-bar/index",
+    "function-menu": "/components/function-menu/index"
+  }
+}

@@ -1,0 +1,56 @@
+<!-- components/function-menu/index.wxml -->
+<!-- 功能导航面板 -->
+<view class="function-menu-mask {{show ? 'show' : ''}}" bindtap="onMaskTap">
+  <view class="function-menu-panel {{show ? 'show' : ''}}" catchtap="stopPropagation">
+    <!-- 功能网格 -->
+    <view class="menu-grid">
+      <!-- 每日奖励 -->
+      <view class="menu-item {{selectedPage === 'daily-bonus' ? 'tap-disabled' : ''}}" bindtap="onMenuItemTap" data-page="daily-bonus">
+        <view class="menu-icon-wrapper bonus-bg">
+          <text class="menu-icon">🎁</text>
+          <!-- 红点徽章 -->
+          <view class="menu-badge" wx:if="{{dailyBonusUnread > 0}}">
+            <text class="menu-badge-text">{{dailyBonusUnread}}</text>
+          </view>
+        </view>
+        <text class="menu-text">幸运补给</text>
+      </view>
+
+      <!-- 话术收藏 -->
+      <view class="menu-item {{selectedPage === 'reply-favorites' ? 'tap-disabled' : ''}}" bindtap="onMenuItemTap" data-page="reply-favorites">
+        <view class="menu-icon-wrapper answer-bg">
+          <text class="menu-icon">💬</text>
+        </view>
+        <text class="menu-text">话术收藏</text>
+      </view>
+      
+      <!-- 好友共享 -->
+      <view class="menu-item {{selectedPage === 'friend-share' ? 'tap-disabled' : ''}}" bindtap="onMenuItemTap" data-page="friend-share">
+        <view class="menu-icon-wrapper friend-bg">
+          <text class="menu-icon">🤝</text>
+        </view>
+        <text class="menu-text">心灵连接</text>
+      </view>
+      
+      <!-- 答案之书 -->
+      <view class="menu-item {{selectedPage === 'answer-book' ? 'tap-disabled' : ''}}" bindtap="onMenuItemTap" data-page="answer-book">
+        <view class="menu-icon-wrapper answer-bg">
+          <text class="menu-icon">📖</text>
+        </view>
+        <text class="menu-text">命运之书</text>
+      </view>
+      
+      <!-- 星座运势 -->
+      <view class="menu-item {{selectedPage === 'horoscope' ? 'tap-disabled' : ''}}" bindtap="onMenuItemTap" data-page="horoscope">
+        <view class="menu-icon-wrapper horoscope-bg">
+          <text class="menu-icon">{{constellationSymbol}}</text>
+          <!-- 红点徽章 -->
+          <view class="menu-badge" wx:if="{{horoscopeUnread > 0}}">
+            <text class="menu-badge-text">{{horoscopeUnread}}</text>
+          </view>
+        </view>
+        <text class="menu-text">{{constellationText}}</text>
+      </view>
+    </view>
+  </view>
+</view>

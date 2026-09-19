@@ -1,0 +1,35 @@
+<!--pages/answer-book/history.wxml-->
+<view class="container">
+  <!-- 标题 -->
+  <view class="header">
+    <text class="title">历史记录</text>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="history-list" wx:if="{{records.length > 0}}">
+    <view class="record-item" wx:for="{{records}}" wx:key="id">
+      <view class="record-header">
+        <text class="record-time">{{item.createTime}}</text>
+      </view>
+      <view class="record-question">
+        <text class="label">问：</text>
+        <text class="content">{{item.question}}</text>
+      </view>
+      <view class="record-answer">
+        <text class="label">答：</text>
+        <text class="content">{{item.randomAnswer}}</text>
+      </view>
+      <view class="record-explanation" wx:if="{{item.aiExplanation}}">
+        <text class="label">解读：</text>
+        <text class="content">{{item.aiExplanation}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{records.length === 0 && !loading}}">
+    <text class="empty-icon">📖</text>
+    <text class="empty-text">暂无历史记录</text>
+  </view>
+
+</view>

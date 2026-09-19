@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "心情回顾 - 情绪趋势",
+  "navigationBarBackgroundColor": "#F48FB1",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "tab-bar": "/components/tab-bar/index",
+    "step-list": "/components/step-list/index",
+    "loading": "/components/loading/index"
+  }
+}

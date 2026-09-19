@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "答案之书 - 历史记录",
+  "navigationBarBackgroundColor": "#F48FB1",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

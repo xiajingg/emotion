@@ -1,0 +1,95 @@
+<view class="container">
+  <view class="header">
+    <text class="title" wx:if="{{isBound}}">已绑定 · {{friendNickname || '好友'}}</text>
+    <text class="subtitle">与好友同步情绪脉搏</text>
+  </view>
+
+  <!-- 未绑定状态：显示共享码和绑定输入框 -->
+  <view class="bind-section" wx:if="{{!isBound}}">
+    <view class="code-section">
+      <text class="label">我的共享码</text>
+      <view class="code-box {{isCopyingCode ? 'tap-disabled' : ''}}" bindtap="copyCode">
+        <text class="code">{{shareCode || '加载中...'}}</text>
+        <text class="iconfont icon-copy"></text>
+      </view>
+      <text class="tip">将共享码分享给好友，让对方输入后建立绑定关系</text>
+    </view>
+
+    <view class="input-section">
+      <text class="label">绑定好友</text>
+      <input class="input" placeholder="输入好友的共享码" model:value="{{friendCode}}" />
+      <button class="btn {{isBindingFriend ? 'tap-disabled' : ''}}" type="primary" bindtap="handleBind" disabled="{{isBindingFriend}}">
+        {{isBindingFriend ? '绑定中...' : '绑定好友'}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 已绑定状态：显示数据对比 -->
+  <view class="history-section" wx:if="{{isBound}}">
+    <view class="daily-analysis-card" wx:if="{{dailyAnalysis}}">
+      <view class="analysis-header">
+        <text class="analysis-title">{{dailyAnalysis.title}}</text>
+        <text class="analysis-time">{{dailyAnalysis.updatedAt}}</text>
+      </view>
+      <text class="analysis-summary">{{dailyAnalysis.summary}}</text>
+      <text class="analysis-suggestion" wx:if="{{dailyAnalysis.suggestion}}">{{dailyAnalysis.suggestion}}</text>
+      <view class="analysis-stats">
+        <view class="analysis-stat">
+          <text class="stat-num">{{dailyAnalysis.meCount}}</text>
+          <text class="stat-label">我的记录</text>
+        </view>
+        <view class="analysis-stat">
+          <text class="stat-num">{{dailyAnalysis.friendCount}}</text>
+          <text class="stat-label">好友记录</text>
+        </view>
+        <view class="analysis-stat">
+          <text class="stat-num">{{dailyAnalysis.sameDayCount}}</text>
+          <text class="stat-label">同天记录</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ✅ 简化时间线（移除中轴线，全宽卡片） -->
+    <view class="timeline-container" wx:if="{{timeline.length > 0}}">
+      <block wx:for="{{timeline}}" wx:key="date">
+        <!-- 记录卡片 -->
+        <view class="record-card {{record.owner === 'me' ? 'me-card' : 'friend-card'}}" 
+              wx:for="{{item.records}}" 
+              wx:for-item="record" 
+              wx:key="index"
+              data-id="{{record.id}}"
+              bindtap="openTimelineDetail">
+          <view class="card-content">
+            <view class="card-header">
+              <text class="owner-tag">{{record.owner === 'me' ? '我' : (friendNickname || '好友')}}</text>
+              <text class="time">{{record.createTime}}</text>
+            </view>
+            <view class="record-images" wx:if="{{record.images && record.images.length > 0}}">
+              <image
+                class="record-image"
+                wx:for="{{record.images}}"
+                wx:for-item="img"
+                wx:key="index"
+                src="{{img}}"
+                mode="{{record.doodle ? 'aspectFit' : 'aspectFill'}}"
+              ></image>
+            </view>
+            <text class="content" wx:if="{{record.content}}">{{record.content}}</text>
+            <!-- ✅ 显示 AI 回复（提取 reminder 字段） -->
+            <view class="ai-response" wx:if="{{record.aiReminder}}">
+              <text class="ai-text">{{record.aiReminder}}</text>
+            </view>
+            <view class="view-hint">
+              <text>点击查看完整分析</text>
+              <text class="view-arrow">›</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    
+    <view class="empty-tip" wx:else>
+      <text>暂无记录</text>
+    </view>
+  </view>
+</view>

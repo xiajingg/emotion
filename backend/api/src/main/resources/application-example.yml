@@ -1,0 +1,67 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: emotion-api
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  datasource:
+    rds:
+      url: ${EMOTION_DB_URL:jdbc:mysql://localhost:3306/emotion?useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&serverTimezone=GMT%2B8&allowMultiQueries=true&socketTimeout=60000}
+      username: ${EMOTION_DB_USERNAME:root}
+      password: ${EMOTION_DB_PASSWORD:change-me}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 2
+      max-active: 20
+      min-idle: 1
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        model: ${OLLAMA_MODEL:qwen3.5:9b}
+        options:
+          temperature: 0.7
+          top-p: 0.8
+          num-predict: 200
+
+rustfs:
+  endpoint: ${RUSTFS_ENDPOINT:http://127.0.0.1:9000}
+  accessKey: ${RUSTFS_ACCESS_KEY:change-me}
+  secretKey: ${RUSTFS_SECRET_KEY:change-me}
+  bucketName: ${RUSTFS_BUCKET:emotion}
+
+ollama:
+  vision-model: ${OLLAMA_VISION_MODEL:${OLLAMA_MODEL:qwen3.5:9b}}
+
+wechat:
+  app-id: ${WECHAT_APP_ID:change-me}
+  app-secret: ${WECHAT_APP_SECRET:change-me}
+  weekly-report:
+    template-id: ${WECHAT_WEEKLY_REPORT_TEMPLATE_ID:change-me}
+
+dingtalk:
+  # 钉钉机器人告警（全局异常会推送）。不需要告警时留空即可，不影响其他功能。
+  access-token: ${DINGTALK_ACCESS_TOKEN:change-me}
+  secret: ${DINGTALK_SECRET:change-me}
+
+# ============================================================
+# 应用密钥 —— 请通过环境变量注入，切勿把真实值写进本文件
+# ============================================================
+jwt:
+  # HMAC-SHA256 签名密钥（Base64 编码 32 字节），用 `openssl rand -base64 32` 生成
+  secret: ${JWT_SECRET:change-me}
+  expiration-ms: 604800000
+
+zhipu:
+  api-key: ${ZHIPU_API_KEY:change-me}

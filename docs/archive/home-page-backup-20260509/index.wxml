@@ -1,0 +1,46 @@
+<!-- pages/home/index.wxml -->
+<!-- 心灵驿站 - 今日心语 -->
+<view class="container">
+  <view class="content-wrapper">
+    <!-- 头部标题 -->
+    <view class="header-section">
+      <view class="logo">
+        <text class="logo-icon">🌿</text>
+        <text class="title">心灵驿站</text>
+      </view>
+      <text class="subtitle">让心情有个安放的地方</text>
+    </view>
+
+    <!-- 今日心语卡片 -->
+    <view class="quote-card fade-in">
+      <view class="quote-header">
+        <text class="quote-icon">💭</text>
+        <text class="quote-title">今日心语</text>
+      </view>
+      <view class="quote-content">
+        <text class="quote-text">{{motivation}}</text>
+      </view>
+      <view class="quote-footer">
+        <view class="feedback-section">
+          <view class="feedback-btn" bindtap="onFeedback" data-type="1">
+            <text class="feedback-icon">👍</text>
+            <text class="feedback-count">{{likeCount}}</text>
+          </view>
+          <view class="feedback-btn" bindtap="onFeedback" data-type="2">
+            <text class="feedback-icon">👎</text>
+            <text class="feedback-count">{{dislikeCount}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 进入按钮 -->
+    <view class="enter-section slide-up">
+      <view class="enter-btn" bindtap="goToMain">
+        <text class="btn-icon">🚀</text>
+        <text class="btn-text">开启心灵之旅</text>
+        <text class="btn-arrow">→</text>
+      </view>
+    </view>
+  </view>
+</view>

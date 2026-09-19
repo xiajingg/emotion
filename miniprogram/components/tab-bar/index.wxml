@@ -1,0 +1,38 @@
+<!-- components/tab-bar/index.wxml -->
+<!-- 自定义底部导航栏 -->
+<view class="tab-bar">
+  <view class="tab-bar-item {{currentPage === 'index' ? 'active' : ''}} {{tapLock === 'index' ? 'tap-disabled' : ''}}" bindtap="onIndexTap">
+    <view class="tab-icon-shell">
+      <view class="tab-icon">😮‍💨</view>
+    </view>
+    <text class="tab-text">解压</text>
+  </view>
+  <view class="tab-bar-item {{showFunctionMenu ? 'active' : ''}} {{tapLock === 'menu' ? 'tap-disabled' : ''}}" bindtap="onFunctionMenuTap">
+    <view class="tab-icon-wrapper">
+      <view class="tab-icon-shell">
+        <view class="tab-icon">✨</view>
+      </view>
+      <!-- 红点徽章 -->
+      <view class="notification-badge" wx:if="{{unreadCount > 0}}">
+        <text class="badge-text">{{unreadCount}}</text>
+      </view>
+    </view>
+    <text class="tab-text">探索</text>
+  </view>
+  <view class="tab-bar-item {{currentPage === 'mine' ? 'active' : ''}} {{tapLock === 'mine' ? 'tap-disabled' : ''}}" bindtap="onMineTap">
+    <view class="tab-icon-shell">
+      <view class="tab-icon">🫶</view>
+    </view>
+    <text class="tab-text">我的</text>
+  </view>
+</view>
+
+<!-- 功能菜单面板 -->
+<function-menu 
+  show="{{showFunctionMenu}}" 
+  userConstellation="{{userConstellation}}"
+  dailyBonusUnread="{{dailyBonusUnread}}"
+  horoscopeUnread="{{horoscopeUnread}}"
+  bind:close="onCloseFunctionMenu" 
+  bind:select="onFunctionSelect">
+</function-menu>

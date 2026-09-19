@@ -1,0 +1,12 @@
+<!-- components/loading/index.wxml -->
+<!-- 加载中组件 -->
+<view class="loading-overlay" wx:if="{{show}}">
+  <view class="loading-content">
+    <view class="loading-spinner">
+      <view class="spinner-dot"></view>
+      <view class="spinner-dot"></view>
+      <view class="spinner-dot"></view>
+    </view>
+    <text class="loading-text">{{text}}</text>
+  </view>
+</view>

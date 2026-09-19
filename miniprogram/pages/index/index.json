@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "情绪急救助手",
+  "navigationBarBackgroundColor": "#F48FB1",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "tab-bar": "/components/tab-bar/index",
+    "loading": "/components/loading/index"
+  }
+}

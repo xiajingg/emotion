@@ -1,0 +1,355 @@
+<!-- pages/index/index.wxml -->
+<!-- 情绪解压卡 - 情绪解压主页面 -->
+<view class="container">
+
+  <!-- 快速打卡卡片（置顶，提升用户激活和留存） -->
+  <view class="quick-checkin-card" hidden="{{todayCheckedIn}}">
+    <view class="card-title">📅 今日心情打卡</view>
+    <view class="emoji-group">
+      <view class="emoji-item" data-mood="1" bindtap="onQuickCheckIn">😊</view>
+      <view class="emoji-item" data-mood="2" bindtap="onQuickCheckIn">😐</view>
+      <view class="emoji-item" data-mood="3" bindtap="onQuickCheckIn">😢</view>
+      <view class="emoji-item" data-mood="4" bindtap="onQuickCheckIn">😡</view>
+      <view class="emoji-item" data-mood="5" bindtap="onQuickCheckIn">😴</view>
+    </view>
+    <view class="card-tip">💡 每天点一下，留下情绪连续记录</view>
+  </view>
+
+  <!-- 已打卡状态 -->
+  <view class="checked-in-card" hidden="{{!todayCheckedIn}}">
+    <view class="checkin-left">
+      <text class="greeting-kicker">{{greetingText}}</text>
+      <text class="greeting-text">今天轻一点</text>
+    </view>
+    <view class="checkin-right">
+      <view class="checkin-success">已打卡</view>
+      <view class="streak-info">{{consecutiveDays}} 天</view>
+    </view>
+  </view>
+
+  <!-- 主要内容（首页聚焦核心价值，次数卡片已移至"我的"页面） -->
+  <view class="main-content">
+
+    <!-- 下周预案入口卡片 -->
+    <view class="weekly-report-home-card {{isNavigatingWeeklyReport ? 'tap-disabled' : ''}}" bindtap="goToWeeklyReport" hover-class="weekly-report-home-card-hover">
+      <view class="wrh-left">
+        <view class="wrh-icon-wrap">
+          <text class="wrh-icon">📈</text>
+        </view>
+        <view class="wrh-text">
+          <text class="wrh-title">下周情绪预案</text>
+          <text class="wrh-desc">看触发点和应对话术</text>
+        </view>
+      </view>
+      <view class="wrh-cta">
+        <text>查看</text>
+        <text class="wrh-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="rescue-hero" wx:if="{{inputMode === 'text'}}">
+      <text class="rescue-title">现在卡住了？</text>
+      <text class="rescue-subtitle">先稳住，再决定怎么回。</text>
+    </view>
+
+    <view class="input-mode-tabs secondary-mode-tabs">
+      <view
+        class="input-mode-tab {{inputMode === 'text' ? 'active' : ''}}"
+        data-mode="text"
+        bindtap="switchInputMode"
+      >
+        <text class="input-mode-icon">✍️</text>
+        <text>急救回复</text>
+      </view>
+      <view
+        class="input-mode-tab {{inputMode === 'drawing' ? 'active' : ''}}"
+        data-mode="drawing"
+        bindtap="switchInputMode"
+      >
+        <text class="input-mode-icon">🎨</text>
+        <text>涂鸦探索</text>
+      </view>
+    </view>
+
+    <!-- V3: 常见烦恼灵感，不限制用户输入范围 -->
+    <view class="scene-tags" wx:if="{{inputMode === 'text'}}">
+      <view class="scene-guide">
+        <text class="scene-guide-title">选一个真实场景</text>
+      </view>
+      <view class="scene-tag-list">
+        <view
+          class="scene-tag {{selectedScene === item.scene ? 'active' : ''}}"
+          wx:for="{{sceneTags}}"
+          wx:key="key"
+          data-key="{{item.key}}"
+          data-scene="{{item.scene}}"
+          bindtap="onSceneTap"
+          hover-class="scene-tag-hover"
+        >
+          <text class="scene-tag-mark">{{selectedScene === item.scene ? '✓' : '+'}}</text>
+          <text>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 情绪解压输入卡片 -->
+    <view class="input-card">
+      <view class="card-header">
+        <text class="card-icon">{{inputMode === 'drawing' ? '🎨' : '💬'}}</text>
+        <view class="input-title-wrap">
+        <text class="card-title">{{inputMode === 'drawing' ? '画出这一刻' : '把对方那句话贴进来'}}</text>
+        </view>
+      </view>
+      <view class="textarea-wrapper" wx:if="{{inputMode === 'text'}}">
+        <textarea
+          class="textarea"
+          placeholder="{{currentPlaceholder || placeholders[placeholderIndex]}}"
+          maxlength="200"
+          bindinput="onTextInput"
+          value="{{textData}}"
+          focus="{{textareaFocus}}"
+          cursor="{{textData.length}}"
+          auto-height
+        />
+        <view class="clear-btn" wx:if="{{textData.length > 0}}" bindtap="clearText">
+          <text class="clear-icon">✕</text>
+        </view>
+        <view class="voice-input-btn {{isVoiceRecording ? 'recording' : ''}}" bindtap="toggleVoiceInput">
+          <text class="voice-icon">{{isVoiceRecording ? '■' : '🎙️'}}</text>
+          <text class="voice-text">{{isVoiceRecording ? '停止' : '语音'}}</text>
+        </view>
+      </view>
+      <view class="input-meta-row" wx:if="{{inputMode === 'text'}}">
+        <view class="voice-live-status" wx:if="{{isVoiceRecording}}">
+          <text class="voice-live-dot"></text>
+          <text>{{voiceRecognizingText ? '正在识别' : '正在听'}}</text>
+        </view>
+        <view class="word-count">{{textData.length}}/200</view>
+      </view>
+
+      <view class="drawing-panel" wx:if="{{inputMode === 'drawing'}}">
+        <view class="drawing-toolbar">
+          <view class="drawing-colors">
+            <view
+              class="drawing-color {{selectedDrawingColor === item.value ? 'active' : ''}}"
+              wx:for="{{drawingColors}}"
+              wx:key="value"
+              style="background: {{item.value}};"
+              data-color="{{item.value}}"
+              bindtap="selectDrawingColor"
+            ></view>
+          </view>
+          <view class="drawing-tools">
+            <view
+              class="drawing-size {{selectedDrawingBrushSize === item.value ? 'active' : ''}}"
+              wx:for="{{drawingBrushSizes}}"
+              wx:key="value"
+              data-size="{{item.value}}"
+              bindtap="selectDrawingBrushSize"
+            >{{item.name}}</view>
+            <view class="drawing-tool-btn {{drawingStrokeCount === 0 ? 'disabled' : ''}}" bindtap="undoDrawing">撤销</view>
+            <view class="drawing-tool-btn {{drawingStrokeCount === 0 ? 'disabled' : ''}}" bindtap="clearDrawing">清空</view>
+          </view>
+        </view>
+        <view class="drawing-canvas-wrap">
+          <canvas
+            id="emotionCanvas"
+            class="emotion-canvas"
+            type="2d"
+            canvas-id="emotionCanvas"
+            disable-scroll="true"
+            bindtouchstart="onDrawingStart"
+            bindtouchmove="onDrawingMove"
+            bindtouchend="onDrawingEnd"
+            bindtouchcancel="onDrawingEnd"
+          ></canvas>
+          <view class="drawing-empty-hint" wx:if="{{!drawingHasContent}}">随便画几笔就好</view>
+        </view>
+        <view class="drawing-mood-row">
+          <view
+            class="drawing-mood-chip {{selectedDrawingMood === item ? 'active' : ''}}"
+            wx:for="{{drawingMoodOptions}}"
+            wx:key="*this"
+            data-mood="{{item}}"
+            bindtap="selectDrawingMood"
+          >{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 分析按钮 -->
+    <view class="action-section">
+      <button
+        class="analyze-btn {{canAnalyze ? 'ready' : 'empty'}} {{isAnalyzing ? 'disabled' : ''}}"
+        bindtap="submitText"
+        disabled="{{isAnalyzing}}"
+      >
+        <text class="btn-icon heart-icon">{{canAnalyze ? '💗' : (inputMode === 'drawing' ? '🎨' : '✍️')}}</text>
+        <text class="btn-text">{{isAnalyzing ? (inputMode === 'drawing' ? '正在解读...' : '正在生成急救回复...') : (inputMode === 'drawing' ? (canAnalyze ? '解读我的涂鸦' : '先画几笔') : (canAnalyze ? '先稳住，再回复' : '先选或写一句'))}}</text>
+      </button>
+      <view class="action-preview">
+        <text class="preview-dot"></text>
+        <text>{{inputMode === 'drawing' ? '颜色线条 · 情绪翻译 · 解压动作' : '60秒稳住 · 避坑提醒 · 可复制话术'}}</text>
+      </view>
+    </view>
+
+    <!-- 情绪解压卡结果（仅分析后展示） -->
+    <view class="result-section" id="resultSection" wx:if="{{showResult}}">
+
+      <!-- 1. 先别急着回 -->
+      <view class="diagnosis-card" id="emotion-result-card">
+        <view class="diagnosis-header">
+          <text class="diagnosis-icon">🧭</text>
+          <text class="diagnosis-title">先别急着回</text>
+        </view>
+        <view class="scene-indicator" wx:if="{{analysisData.scene}}">
+          <text class="scene-indicator-text">🎯 已参考【{{analysisData.scene}}】这个表达方式</text>
+        </view>
+        <view class="result-doodle-preview" wx:if="{{analysisData.drawingImagePath}}">
+          <image src="{{analysisData.drawingImagePath}}" mode="aspectFit" class="result-doodle-image"></image>
+        </view>
+        <view class="diagnosis-tag">{{emotionTag}}</view>
+        <view class="diagnosis-comment">{{aiComment}}</view>
+      </view>
+
+      <!-- 2. 你被刺到的点 -->
+      <view class="relief-card">
+        <view class="relief-header">
+          <text class="relief-icon">🎯</text>
+          <text class="relief-title">你被刺到的点</text>
+        </view>
+        <text class="insight-text">{{painPoint}}</text>
+      </view>
+
+      <!-- 3. 60 秒稳住 -->
+      <view class="relief-card">
+        <view class="relief-header">
+          <text class="relief-icon">🫧</text>
+          <text class="relief-title">60 秒稳住</text>
+        </view>
+        <view class="stabilize-primary">{{stabilizeAction}}</view>
+        <view class="relief-list">
+          <view class="relief-item" wx:for="{{reliefActions}}" wx:key="*this">
+            <text class="relief-dot">{{index + 1}}</text>
+            <text class="relief-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 4. 可以这样说 -->
+      <view class="replies-card" id="repliesSection">
+        <view class="replies-header">
+          <text class="replies-icon">💬</text>
+          <text class="replies-title">可以这样说</text>
+        </view>
+        <!-- Tab 栏 -->
+        <view class="reply-tabs">
+          <view
+            class="reply-tab {{activeTab === item.key ? 'active' : ''}}"
+            wx:for="{{tabLabels}}"
+            wx:key="key"
+            data-tab="{{item.key}}"
+            bindtap="switchReplyTab"
+          >
+            <text class="tab-icon">{{item.icon}}</text>
+            <text class="tab-text">{{item.text}}</text>
+          </view>
+        </view>
+        <!-- Tab 内容区（每个回复带独立复制按钮） -->
+        <view class="reply-content">
+          <view class="reply-bubble" wx:if="{{activeTab === 0 && replies.safe}}">
+            <text class="reply-text">{{replies.safe}}</text>
+            <view class="reply-actions">
+            <view class="reply-copy-btn {{copyingReplyKey === 'safe' ? 'tap-disabled' : ''}}" catchtap="copyHighEqReply">
+              <text class="copy-icon-sm">📋 复制</text>
+            </view>
+            <view class="reply-copy-btn {{favoritingReplyKey === 'safe' ? 'tap-disabled' : ''}}" catchtap="favoriteActiveReply">收藏</view>
+            <view class="reply-copy-btn" catchtap="shareActiveReplyTemplate">模板</view>
+            </view>
+          </view>
+          <view class="reply-bubble" wx:if="{{activeTab === 1 && replies.firm}}">
+            <text class="reply-text">{{replies.firm}}</text>
+            <view class="reply-actions">
+            <view class="reply-copy-btn {{copyingReplyKey === 'firm' ? 'tap-disabled' : ''}}" catchtap="copyBoundaryReply">
+              <text class="copy-icon-sm">📋 复制</text>
+            </view>
+            <view class="reply-copy-btn {{favoritingReplyKey === 'firm' ? 'tap-disabled' : ''}}" catchtap="favoriteActiveReply">收藏</view>
+            <view class="reply-copy-btn" catchtap="shareActiveReplyTemplate">模板</view>
+            </view>
+          </view>
+          <view class="reply-bubble" wx:if="{{activeTab === 2 && replies.gentle}}">
+            <text class="reply-text">{{replies.gentle}}</text>
+            <view class="reply-actions">
+            <view class="reply-copy-btn {{copyingReplyKey === 'gentle' ? 'tap-disabled' : ''}}" catchtap="copyGentleReply">
+              <text class="copy-icon-sm">📋 复制</text>
+            </view>
+            <view class="reply-copy-btn {{favoritingReplyKey === 'gentle' ? 'tap-disabled' : ''}}" catchtap="favoriteActiveReply">收藏</view>
+            <view class="reply-copy-btn" catchtap="shareActiveReplyTemplate">模板</view>
+            </view>
+          </view>
+          <view class="reply-bubble" wx:if="{{activeTab === 3 && replies.shortReply}}">
+            <text class="reply-text">{{replies.shortReply}}</text>
+            <view class="reply-actions">
+            <view class="reply-copy-btn {{copyingReplyKey === 'short' ? 'tap-disabled' : ''}}" catchtap="copySarcasticReply">
+              <text class="copy-icon-sm">📋 复制</text>
+            </view>
+            <view class="reply-copy-btn {{favoritingReplyKey === 'short' ? 'tap-disabled' : ''}}" catchtap="favoriteActiveReply">收藏</view>
+            <view class="reply-copy-btn" catchtap="shareActiveReplyTemplate">模板</view>
+            </view>
+          </view>
+          <view class="reply-empty" wx:if="{{(activeTab === 0 && !replies.safe) || (activeTab === 1 && !replies.firm) || (activeTab === 2 && !replies.gentle) || (activeTab === 3 && !replies.shortReply)}}">这一版回复暂时没生成出来，可以切换其他表达方式。</view>
+        </view>
+      </view>
+
+      <!-- 5. 下次遇到同类事 -->
+      <view class="answer-book-card">
+        <view class="answer-book-header">
+          <text class="answer-book-icon">📝</text>
+          <text class="answer-book-title">下次遇到同类事</text>
+        </view>
+        <view class="answer-book-content">{{nextTimeTip}}</view>
+        <view class="answer-book-divider"></view>
+        <text class="answer-book-sub">避坑提醒：{{dontSay}}</text>
+      </view>
+
+      <!-- 分享按钮 -->
+      <view class="share-action-section">
+        <button class="btn-share-card {{isSharingCard ? 'tap-disabled' : ''}}" bindtap="handleShareCard" disabled="{{isSharingCard}}">
+          <text class="btn-icon">📤</text>
+          <text>{{isSharingCard ? '处理中...' : '分享低隐私模板'}}</text>
+        </button>
+      </view>
+
+      <!-- 情绪周报订阅（微信一次性订阅，按钮始终可见） -->
+      <view class="subscribe-section" wx:if="{{showSubscribeBtn}}">
+        <button class="subscribe-btn {{hasSubscribed ? 'subscribed' : ''}} {{isSubscribingWeeklyReport ? 'tap-disabled' : ''}}" bindtap="subscribeWeeklyReport" disabled="{{isSubscribingWeeklyReport}}">
+          <text class="subscribe-icon">{{hasSubscribed ? '✅' : '📊'}}</text>
+          <text class="subscribe-text">{{hasSubscribed ? '已授权，周一推送' : '订阅下周情绪预案'}}</text>
+        </button>
+        <text class="subscribe-tip">{{hasSubscribed ? '授权已生效，每周一早上9点推送下周预案' : '每周一接收触发点、风险场景和应对话术'}}</text>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 底部导航 -->
+  <view class="tab-bar-placeholder"></view>
+  <tab-bar id="tabBar" currentPage="index"></tab-bar>
+
+  <!-- 加载中 -->
+  <loading show="{{loading}}" text="{{loadingText}}"></loading>
+
+  <!-- 全屏感知动画 -->
+  <view class="fullscreen-loading" hidden="{{!isAnalyzing}}">
+    <view class="loading-content">
+      <view class="pulse-ring"></view>
+      <view class="pulse-ring pulse-ring-2"></view>
+      <view class="pulse-ring pulse-ring-3"></view>
+      <view class="loading-icon">💫</view>
+      <text class="loading-text">正在生成你的急救回复...</text>
+    </view>
+  </view>
+
+  <!-- 隐藏的分享画布 -->
+  <canvas id="shareCanvas" class="share-canvas-hidden" type="2d"></canvas>
+</view>

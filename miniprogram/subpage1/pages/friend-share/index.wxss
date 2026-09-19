@@ -1,0 +1,356 @@
+.container {
+  padding: 30rpx;
+  background: linear-gradient(180deg, #f5f3ff 0%, #faf9ff 100%);
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  background: linear-gradient(135deg, #F48FB1, #FFB6C9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #FFB6C9;
+  display: block;
+}
+
+/* 未绑定状态样式 */
+.bind-section {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.code-section {
+  background: #fff;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.code-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #F48FB110, #FFB6C910);
+  border: 2rpx dashed #F48FB1;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+}
+
+.code {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #F48FB1;
+  letter-spacing: 2rpx;
+}
+
+.tip {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 15rpx;
+  text-align: center;
+}
+
+.input-section {
+  background: #fff;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.input {
+  border: 2rpx solid #eee;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+.btn {
+  width: 100%;
+  background: linear-gradient(135deg, #F48FB1, #FFB6C9);
+  color: #fff;
+}
+
+.label {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+}
+
+.daily-analysis-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 26rpx;
+  box-shadow: 0 8rpx 24rpx rgba(244, 143, 177, 0.12);
+  border: 1rpx solid rgba(244, 143, 177, 0.14);
+}
+
+.analysis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.analysis-title {
+  font-size: 32rpx;
+  color: #5F3447;
+  font-weight: 700;
+}
+
+.analysis-time {
+  font-size: 22rpx;
+  color: #C999AA;
+  white-space: nowrap;
+}
+
+.analysis-summary {
+  display: block;
+  font-size: 27rpx;
+  color: #6E5962;
+  line-height: 1.6;
+  margin-bottom: 14rpx;
+}
+
+.analysis-suggestion {
+  display: block;
+  font-size: 25rpx;
+  color: #8C405D;
+  line-height: 1.6;
+  padding: 16rpx 18rpx;
+  border-radius: 14rpx;
+  background: #FFF6F9;
+  margin-bottom: 22rpx;
+}
+
+.analysis-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14rpx;
+}
+
+.analysis-stat {
+  min-width: 0;
+  padding: 18rpx 8rpx;
+  border-radius: 14rpx;
+  background: #FFF6F9;
+  text-align: center;
+}
+
+.stat-num {
+  display: block;
+  font-size: 34rpx;
+  color: #F48FB1;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #B792A0;
+  white-space: nowrap;
+}
+
+/* ✅ 简化时间线（移除中轴线） */
+.timeline-container {
+  padding: 20rpx 0;
+}
+
+.record-card {
+  margin-bottom: 20rpx;
+  animation: slideIn 0.3s ease-out;
+}
+
+.record-card:active {
+  opacity: 0.82;
+}
+
+/* ✅ 我的卡片 - 靠左，右侧留白 */
+.me-card {
+  margin-right: 40rpx;
+}
+
+/* ✅ 好友卡片 - 靠右，左侧留白 */
+.friend-card {
+  margin-left: 40rpx;
+}
+
+.card-content {
+  padding: 24rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+/* ✅ 我的卡片 - 蓝色左边框 */
+.me-card .card-content {
+  background: linear-gradient(135deg, #007AFF08, #007AFF15);
+  border-left: 4rpx solid #007AFF;
+}
+
+/* ✅ 好友卡片 - 粉色右边框 */
+.friend-card .card-content {
+  background: linear-gradient(135deg, #FF69B408, #FF69B415);
+  border-right: 4rpx solid #FF69B4;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  gap: 16rpx;
+}
+
+/* 好友卡片头部反转：好友记录时间靠左展示 */
+.friend-card .card-header {
+  flex-direction: row-reverse;
+}
+
+.time {
+  font-size: 24rpx; /* ✅ 增大字号，从 22rpx 改为 24rpx */
+  color: #666; /* ✅ 加深颜色，从 #888 改为 #666 */
+  font-family: 'Courier New', monospace;
+  white-space: nowrap; /* 防止时间换行 */
+  font-weight: 600; /* ✅ 增加字重，从 500 改为 600 */
+}
+
+.owner-tag {
+  flex-shrink: 0;
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.me-card .owner-tag {
+  background: #007AFF;
+}
+
+.friend-card .owner-tag {
+  background: #FF69B4;
+}
+
+.record-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin: 12rpx 0;
+}
+
+.record-image {
+  width: 190rpx;
+  height: 190rpx;
+  background: #FFFFFF;
+  border-radius: 14rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.9);
+}
+
+.content {
+  display: block;
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.7;
+  word-break: break-word;
+  margin-bottom: 10rpx;
+}
+
+/* ✅ AI 回复样式 */
+.ai-response {
+  margin-top: 15rpx;
+  padding-top: 15rpx;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.ai-label {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+  font-weight: 500;
+}
+
+.ai-text {
+  display: block;
+  font-size: 24rpx;
+  color: #777;
+  line-height: 1.7;
+  word-break: break-word;
+  padding: 12rpx;
+  border-radius: 8rpx;
+}
+
+.view-hint {
+  margin-top: 14rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4rpx;
+  color: #8C405D;
+  font-size: 23rpx;
+  font-weight: 600;
+}
+
+.view-arrow {
+  font-size: 30rpx;
+  line-height: 1;
+}
+
+/* ✅ 我的卡片 AI 回复背景 - 淡蓝色 */
+.me-card .ai-text {
+  background: rgba(0, 122, 255, 0.06);
+}
+
+/* ✅ 好友卡片 AI 回复背景 - 淡粉色 */
+.friend-card .ai-text {
+  background: rgba(255, 105, 180, 0.06);
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #ccc;
+  font-size: 28rpx;
+  font-weight: 300;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

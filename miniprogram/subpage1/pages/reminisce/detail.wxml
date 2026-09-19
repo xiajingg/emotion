@@ -1,0 +1,102 @@
+<view class="detail-page">
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <text class="loading-text">正在打开记录...</text>
+  </view>
+
+  <view class="result-section" wx:elif="{{detail}}">
+    <view class="detail-kicker">
+      <text class="detail-kicker-title">情绪解压卡</text>
+      <text class="detail-kicker-time">{{detail.createTime}}</text>
+    </view>
+
+    <view class="diagnosis-card">
+      <view class="diagnosis-header">
+        <text class="diagnosis-icon">🧭</text>
+        <text class="diagnosis-title">我现在怎么了</text>
+      </view>
+
+      <view class="scene-indicator" wx:if="{{isDoodle}}">
+        <text class="scene-indicator-text">🎨 来自一张情绪涂鸦</text>
+      </view>
+
+      <view class="result-doodle-preview" wx:if="{{images.length > 0}}">
+        <image
+          class="result-doodle-image"
+          wx:for="{{images}}"
+          wx:key="index"
+          src="{{item}}"
+          mode="aspectFit"
+          data-src="{{item}}"
+          bindtap="previewImage"
+        ></image>
+      </view>
+
+      <view class="text-preview" wx:if="{{!isDoodle && detail.inputText}}">
+        <text class="text-content">{{detail.inputText}}</text>
+      </view>
+
+      <view class="diagnosis-tag">{{detail.emotion || '心情记录'}}</view>
+      <view class="diagnosis-comment">{{detail.aiComment || detail.reminder || '这条记录还没有更多分析内容。'}}</view>
+    </view>
+
+    <view class="relief-card" wx:if="{{reliefActions.length > 0}}">
+      <view class="relief-header">
+        <text class="relief-icon">🫧</text>
+        <text class="relief-title">先稳住一下</text>
+      </view>
+      <view class="relief-list">
+        <view class="relief-item" wx:for="{{reliefActions}}" wx:key="index">
+          <text class="relief-dot">{{index + 1}}</text>
+          <text class="relief-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="replies-card" wx:if="{{replyItems.length > 0}}">
+      <view class="replies-header">
+        <text class="replies-icon">💬</text>
+        <text class="replies-title">可以这样回复</text>
+      </view>
+      <view class="reply-tabs">
+        <view
+          class="reply-tab {{activeReplyIndex === index ? 'active' : ''}}"
+          wx:for="{{replyItems}}"
+          wx:key="label"
+          data-index="{{index}}"
+          bindtap="switchReplyTab"
+        >
+          <text class="tab-text">{{item.label}}</text>
+        </view>
+      </view>
+      <view class="reply-content">
+        <view class="reply-bubble">
+          <text class="reply-text">{{activeReplyText}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="answer-book-card" wx:if="{{detail.answerBook}}">
+      <view class="answer-book-header">
+        <text class="answer-book-icon">✨</text>
+        <text class="answer-book-title">存进情绪记录</text>
+      </view>
+      <view class="answer-book-content">{{detail.answerBook}}</view>
+      <view class="answer-book-divider"></view>
+      <text class="answer-book-sub">这次解压卡已写入记录，可在“我的”里继续回顾</text>
+    </view>
+
+    <view class="share-card">
+      <view class="share-card-main">
+        <text class="share-card-label">分享卡片</text>
+        <text class="share-card-title">{{detail.emotion || '我的情绪解压卡'}}</text>
+        <text class="share-card-desc">{{detail.aiComment || detail.reminder || '把这一刻整理成一张卡片。'}}</text>
+      </view>
+      <button class="share-card-button {{isSharingCard ? 'tap-disabled' : ''}}" bindtap="handleShareCard" disabled="{{isSharingCard}}">
+        <text class="share-card-button-icon">📤</text>
+        <text>{{isSharingCard ? '处理中...' : '生成分享卡片'}}</text>
+      </button>
+    </view>
+  </view>
+
+  <canvas id="historyShareCanvas" class="share-canvas-hidden" type="2d"></canvas>
+</view>

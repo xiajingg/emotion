@@ -1,0 +1,33 @@
+<!-- subpage1/pages/ranking/index.wxml -->
+<!-- 排行榜页面 -->
+<view class="container">
+
+  <view class="rank-title-card">
+    <text class="rank-title">共鸣榜</text>
+    <text class="rank-subtitle">按情绪记录次数排序</text>
+  </view>
+
+  <!-- 总次数排行 -->
+  <view class="table-wrap">
+    <view class="table">
+      <view class="table-header">
+        <text class="col-rank">排名</text>
+        <text class="col-user">用户</text>
+        <text class="col-val">总次数</text>
+      </view>
+      <view class="table-body">
+        <view class="table-row {{item.isMe ? 'highlight' : ''}}"
+              wx:for="{{totalData}}" wx:key="index">
+          <view class="col-rank">
+            <text class="rank-badge {{index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : ''}}">
+              {{index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index + 1)}}
+            </text>
+          </view>
+          <text class="col-user">{{item.user}}</text>
+          <text class="col-val">{{item.total}}</text>
+        </view>
+        <view class="empty-text" wx:if="{{totalData.length === 0}}">暂无数据</view>
+      </view>
+    </view>
+  </view>
+</view>

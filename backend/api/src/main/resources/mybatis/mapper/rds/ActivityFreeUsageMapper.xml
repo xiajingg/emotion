@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emotion.api.repository.dao.rds.ActivityFreeUsageMapper">
+
+<!--    查询历史记录,关联user表-->
+    <select id="getHistoryQuota" resultType="com.emotion.api.repository.po.ActivityFreeUsage">
+        SELECT a.id, u.open_id as openId, u.nickname as nickname, a.activity_date, a.grab_time, a.reward_usage_count, a.created_at
+        FROM activity_free_usage a
+        LEFT JOIN wechat_user u ON a.user_id = u.id
+        ORDER BY a.id DESC
+    </select>
+</mapper>

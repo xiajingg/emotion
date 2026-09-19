@@ -1,0 +1,112 @@
+<!--pages/answer-book/index.wxml-->
+<view class="container">
+  <!-- 顶部标题区域 -->
+  <view class="header">
+    <text class="title">答案之书</text>
+    <text class="subtitle">心中默念你的问题，然后翻开一页</text>
+    <!-- ===== 已隐藏：剩余次数（推广期无限使用，2026-05-21）===== -->
+    <!-- <view class="remaining-count">
+      <text>剩余次数：</text>
+      <text class="count">{{remainingCount}}</text>
+    </view> -->
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <textarea 
+      class="question-input" 
+      placeholder="写下你心中的困惑..." 
+      maxlength="200"
+      value="{{question}}"
+      bindinput="onQuestionInput"
+      auto-height
+    ></textarea>
+    <view class="char-count">{{question.length}}/200</view>
+  </view>
+
+  <!-- 提问按钮 -->
+  <view class="action-section">
+    <button 
+      class="ask-button {{loading ? 'disabled' : ''}}" 
+      bindtap="onAskQuestion"
+      disabled="{{loading}}"
+    >
+      {{loading ? '正在翻阅...' : '📖 翻开答案之书'}}
+    </button>
+  </view>
+
+  <!-- 分享卡片按钮（未翻开答案时显示） -->
+  <view class="share-action-section" wx:if="{{!showAnswer}}">
+    <button class="btn-share-card {{isSharingCard ? 'tap-disabled' : ''}}" bindtap="handleShareCard" disabled="{{isSharingCard}}">
+      <text class="btn-icon">📤</text>
+      <text>分享卡片</text>
+    </button>
+  </view>
+
+  <!-- 翻书动画区域 -->
+  <view class="book-animation" wx:if="{{showBookAnimation}}">
+    <view class="book-container">
+      <view class="warm-book-aura"></view>
+      <view class="open-book">
+        <view class="book-base-shadow"></view>
+        <view class="book-half book-left">
+          <view class="page-lines"></view>
+        </view>
+        <view class="book-half book-right">
+          <view class="page-lines"></view>
+        </view>
+        <view class="book-spine-light"></view>
+        <view class="turning-pages">
+          <view class="turn-page turn-page-1"></view>
+          <view class="turn-page turn-page-2"></view>
+          <view class="turn-page turn-page-3"></view>
+        </view>
+      </view>
+      <view class="light-beams">
+        <text></text>
+        <text></text>
+        <text></text>
+      </view>
+    </view>
+    <view class="book-sparks">
+      <text></text>
+      <text></text>
+      <text></text>
+    </view>
+    <text class="animation-text">{{bookAnimationText}}</text>
+  </view>
+
+  <!-- 答案展示区域 -->
+  <view class="answer-section" wx:if="{{showAnswer}}">
+    <!-- 预设答案卡片（立即显示） -->
+    <view class="answer-card random-answer-card" wx:if="{{randomAnswer}}">
+      <view class="card-header">✨ 答案之书说 ✨</view>
+      <view class="card-content">{{randomAnswer}}</view>
+    </view>
+
+    <!-- AI解读卡片（异步显示） -->
+    <view class="answer-card ai-explanation-card" wx:if="{{aiLoading || aiExplanation}}">
+      <view class="card-header">💫 心灵解读 💫</view>
+      <view class="card-content" wx:if="{{aiLoading}}">
+        <text class="loading-text">🔮 AI 解析中...</text>
+      </view>
+      <view class="card-content typing-effect" wx:else>{{aiExplanation}}</view>
+    </view>
+
+    <!-- 分享卡片按钮（翻开答案后显示，粉色） -->
+    <view class="share-button-wrapper" wx:if="{{showAnswer}}">
+      <button class="share-answer-btn {{isSharingCard ? 'tap-disabled' : ''}}" bindtap="handleShareCard" disabled="{{isSharingCard}}">
+        <text class="share-icon">📤</text>
+        <text>分享卡片</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 历史记录入口 -->
+  <view class="history-link {{isNavigatingHistory ? 'tap-disabled' : ''}}" bindtap="onShowHistory">
+    <text>查看历史记录 →</text>
+  </view>
+
+  <!-- 隐藏的分享画布 -->
+  <canvas id="answerShareCanvas" class="share-canvas-hidden" type="2d"></canvas>
+</view>

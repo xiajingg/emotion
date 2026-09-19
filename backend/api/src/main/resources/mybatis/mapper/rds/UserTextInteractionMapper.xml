@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emotion.api.repository.dao.rds.UserTextInteractionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.emotion.api.repository.po.UserTextInteraction">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="input_text" property="inputText" />
+        <result column="ai_response" property="aiResponse" />
+        <result column="score" property="score" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id, input_text, ai_response, score, create_time
+    </sql>
+
+
+    <!-- 查询用户平均分排行榜，支持传入userId -->
+    <select id="getUserAvgScoreRank" resultType="com.emotion.api.dto.UserRankDTO">
+        SELECT user_id AS userName, AVG(score) AS total
+        FROM user_text_interactions
+        where type = 0
+        GROUP BY user_id
+        ORDER BY total DESC
+    </select>
+
+    <!-- 查询用户根据type=0的交互次数排行榜 -->
+    <select id="getUseTotalCountRank" resultType="com.emotion.api.dto.UserRankDTO">
+        SELECT user_id AS userName, COUNT(*) AS total
+        FROM user_text_interactions
+        WHERE type = 0
+        GROUP BY user_id
+        ORDER BY total DESC
+    </select>
+</mapper>

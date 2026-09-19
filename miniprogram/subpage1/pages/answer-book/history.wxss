@@ -1,0 +1,88 @@
+/* pages/answer-book/history.wxss */
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 30rpx 30rpx 180rpx;
+}
+
+.header {
+  margin-bottom: 30rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 记录列表 */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.record-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.record-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.record-question,
+.record-answer,
+.record-explanation {
+  margin-bottom: 15rpx;
+}
+
+.record-question:last-child,
+.record-answer:last-child,
+.record-explanation:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #F48FB1;
+  margin-right: 10rpx;
+}
+
+.content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}

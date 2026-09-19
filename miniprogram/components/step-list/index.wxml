@@ -1,0 +1,53 @@
+<!-- components/step-list/index.wxml -->
+<!-- 步骤条组件 - 渲染心情记录历史 -->
+<view class="step-list">
+  <view class="step-item" wx:for="{{steps}}" wx:for-item="step" wx:for-index="stepIdx" wx:key="stepIdx">
+    <!-- 左侧竖线 + 圆点 -->
+    <view class="step-left">
+      <view class="step-dot {{step.finished ? 'finished' : (stepIdx === activeIndex ? 'active' : '')}}">
+        <text class="dot-text" wx:if="{{step.finished}}">✓</text>
+      </view>
+      <view class="step-line" wx:if="{{stepIdx < steps.length - 1}}"></view>
+    </view>
+    <!-- 右侧内容 -->
+    <view class="step-content" data-step-idx="{{stepIdx}}" bindtap="onContentTap">
+      <text class="step-title {{step.finished ? 'finished' : ''}}">{{step.title}}</text>
+
+      <!-- 记录的心情文字 -->
+      <view class="step-body" wx:if="{{step.inputText}}">
+        <text class="step-content-text">{{step.inputText}}</text>
+      </view>
+
+      <!-- 情感诊断标签 -->
+      <view class="step-analysis" wx:if="{{step.emotion}}">
+        <text class="analysis-label">情感诊断：<text class="analysis-value">{{step.emotion}}</text></text>
+      </view>
+
+      <!-- 情绪建议 -->
+      <view class="step-reminder" wx:if="{{step.reminder}}">
+        <text class="reminder-text">{{step.reminder}}</text>
+      </view>
+
+      <!-- 图片预览 -->
+      <view class="step-images" wx:if="{{step.images && step.images.length > 0}}">
+        <image
+          class="step-img"
+          wx:for="{{step.images}}"
+          wx:for-item="img"
+          wx:for-index="imgIdx"
+          wx:key="imgIdx"
+          src="{{img}}"
+          mode="{{step.doodle ? 'aspectFit' : 'aspectFill'}}"
+          data-step-idx="{{stepIdx}}"
+          data-img-idx="{{imgIdx}}"
+          catchtap="onImageTap"
+        ></image>
+      </view>
+
+      <view class="step-view-hint">
+        <text class="step-view-text">{{step.viewHint || '点击查看完整分析'}}</text>
+        <text class="step-view-arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>
